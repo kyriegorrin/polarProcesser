@@ -10,6 +10,10 @@ animated = True
 x_screen = 1500
 y_screen = 1000
 
+#Scale factor for representation purposes so it can fit inside a window.
+#Higher number means smaller drawing (1/scale_factor)
+scale_factor = 2
+
 #Colors
 red = (255,0,0)
 white = (255,255,255)
@@ -56,7 +60,7 @@ def readData():
 
 #Function to convert a list of polar coordinates (angles are calculated from the number of steps) to cartesian ones.
 #It returns a list of pairs of points (integer), with length = steps.
-#NOTE: the data is scaled to 1/2 and adapted to be centered, so it can be represented in the window
+#NOTE: the data is scaled using a scale factor and adapted to be centered, so it can be represented in the window
 def polarToCartesian(points):
     global steps
     cPoints = []
@@ -67,8 +71,8 @@ def polarToCartesian(points):
     print(angleInc*steps)
 
     for point in points:
-        x = math.cos(math.radians(totalAngle)) * float(point) / 2  + x_screen // 2 
-        y = math.sin(math.radians(totalAngle)) * float(point) / 2  + y_screen // 2
+        x = math.cos(math.radians(totalAngle)) * float(point) / 2  + x_screen // scale_factor 
+        y = math.sin(math.radians(totalAngle)) * float(point) / 2  + y_screen // scale_factor
         cPoints.append((x,y))
         totalAngle += angleInc
     
